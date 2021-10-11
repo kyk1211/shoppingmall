@@ -1,7 +1,14 @@
+/* eslint-disable */
 import React from 'react';
+import { useHistory } from 'react-router';
 
 export default function Detail() {
-  
+
+  let history = useHistory();
+  const handleClick = () => {
+    history.goBack();
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -13,6 +20,7 @@ export default function Detail() {
           <p>상품설명</p>
           <p>120000원</p>
           <button className="btn btn-danger">주문하기</button> 
+          <button className="btn btn-danger" onClick={handleClick}>뒤로가기</button> 
         </div>
       </div>
     </div> 
