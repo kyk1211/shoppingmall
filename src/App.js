@@ -3,6 +3,8 @@ import './App.css';
 import Data from './data';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import GoodsList from './GoodsList';
+import { Link, Route, Switch } from 'react-router-dom';
+import Detail from './Detail';
 
 function App() {
 
@@ -29,24 +31,27 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
-      <div className="jumbotron">
-        <h1>20% Season Off</h1>
-        <p>
-          This is a simple hero unit, a simple jumbotron-style component for calling
-          extra attention to featured content or information.
-        </p>
-        <button>Learn more</button>
-      </div>
-
-      <div className='container'>
-        <div className='row'>
-          {shoes.map((shoe, i) => (
-            <GoodsList goods={ shoe } key={i}/>
-          ))}
+      <Route exact path="/">
+        <div className="jumbotron">
+          <h1>20% Season Off</h1>
+          <p>
+            This is a simple hero unit, a simple jumbotron-style component for calling
+            extra attention to featured content or information.
+          </p>
+          <button><Link to="/detail">Learn more!</Link></button>
         </div>
-      </div>
 
+        <div className='container'>
+          <div className='row'>
+            {shoes.map((shoe, i) => (
+              <GoodsList goods={ shoe } key={i}/>
+            ))}
+          </div>
+        </div>
+      </Route>
+      <Route path="/detail">
+        <Detail />
+      </Route>
     </div>
   );
 }
