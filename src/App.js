@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import Data from './data';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import GoodsList from './GoodsList';
 
 function App() {
+
+  let [shoes, setShoes] = useState(Data);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -36,21 +41,9 @@ function App() {
 
       <div className='container'>
         <div className='row'>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes1.jpg" alt="shoes1" width="100%"/>
-            <h4>상품영</h4>
-            <p>상품설명 가격</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes2.jpg" alt="shoes1" width="100%"/>
-            <h4>상품영</h4>
-            <p>상품설명 가격</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes3.jpg" alt="shoes1" width="100%"/>
-            <h4>상품영</h4>
-            <p>상품설명 가격</p>
-          </div>
+          {shoes.map((shoe, i) => (
+            <GoodsList goods={ shoe } key={i}/>
+          ))}
         </div>
       </div>
 
