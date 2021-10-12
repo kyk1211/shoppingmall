@@ -9,7 +9,7 @@ import Navigation from './Navigation';
 
 function App() {
 
-  let [shoes, setShoes] = useState(Data);
+  const [shoes, setShoes] = useState(Data);
 
   return (
     <div className="App">
@@ -34,8 +34,8 @@ function App() {
           </div>
         </Route>
 
-        <Route path="/detail">
-          <Detail />
+        <Route path="/detail/:id">
+          <Detail goods={shoes} />
         </Route>
 
         <Route path="/:id">
