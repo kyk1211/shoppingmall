@@ -2,9 +2,15 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
+import './Detail.scss';
 
-let box = styled.div`
-  padding : 20px;
+const Box = styled.div`
+  padding-top: 30px;
+`;
+
+const Title = styled.h4`
+  font-size: 25px;
+  color: ${ props => props.color };
 `;
 
 export default function Detail({ goods }) {
@@ -13,12 +19,24 @@ export default function Detail({ goods }) {
   const history = useHistory();
   const findGoods = goods.find(item => item.id == id)
 
+
   return (
     <div className="container">
-      <box>asdfa</box>
+      <Box>
+        <Title className="red">Detail</Title>
+        {/* <Title color="red">Detail</Title> */}
+      </Box>
+
+      <div className="my-alert">
+        <p>sold out</p>
+      </div>
+      <div className="my-alert2">
+        <p>sold out</p>
+      </div>
+
       <div className="row">
         <div className="col-md-6">
-          <img src={"https://codingapple1.github.io/shop/shoes"+(goods[id].id+1)+".jpg"} width="100%" />
+          <img src={"https://codingapple1.github.io/shop/shoes"+(findGoods.id+1)+".jpg"} width="100%" />
         </div>
         <div className="col-md-6 mt-4">
           <h4 className="pt-5">{findGoods.title}</h4>

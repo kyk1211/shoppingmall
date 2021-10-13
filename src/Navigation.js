@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import './Navigation.css';
 
 export default function Navigation() {
   return (
@@ -11,7 +12,7 @@ export default function Navigation() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link><Link to="/">Home</Link></Nav.Link>
-            <Nav.Link><Link to="/detail">Detail</Link></Nav.Link>
+            <Nav.Link><Link to="/detail/0">Detail</Link></Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
