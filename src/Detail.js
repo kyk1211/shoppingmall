@@ -60,17 +60,24 @@ export default function Detail({ goods, stock, setStock }) {
             let copyData = []
             stock.forEach((item, idx) => {
               if (idx == id) {
+<<<<<<< HEAD
                 if (item <= 0) {
                   window.alert('sold out');
                   copyData.push(0);
                 } else {
                   copyData.push(item - 1)
                 }
+=======
+                copyData.push(item - 1)
+>>>>>>> 6ad0d43f1262a7953ebcf817f68cec3d0414f703
               } else {
                 copyData.push(item)
               }
             })
+<<<<<<< HEAD
             console.log(stock);
+=======
+>>>>>>> 6ad0d43f1262a7953ebcf817f68cec3d0414f703
             setStock(copyData);
           }}>주문하기</button> 
           <button className="btn btn-danger" onClick={() => {history.goBack()}}>뒤로가기</button> 
