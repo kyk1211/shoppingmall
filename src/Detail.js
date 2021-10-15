@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import './Detail.scss';
+import Stock from './Stock';
 
 const Box = styled.div`
   padding-top: 30px;
@@ -13,7 +14,7 @@ const Title = styled.h4`
   color: ${ props => props.color };
 `;
 
-export default function Detail({ goods }) {
+export default function Detail({ goods, stock, setStock }) {
   const [alert, setAlert] = useState(true);
   const [inputValue, setInputValue] = useState('');
   
@@ -29,7 +30,6 @@ export default function Detail({ goods }) {
   const { id } = useParams();
   const history = useHistory();
   const findGoods = goods.find(item => item.id == id)
-
 
   return (
     <div className="container">
@@ -55,7 +55,24 @@ export default function Detail({ goods }) {
           <h4 className="pt-5">{findGoods.title}</h4>
           <p>{findGoods.content}</p>
           <p>{findGoods.price}원</p>
-          <button className="btn btn-danger">주문하기</button> 
+          <Stock stock={ stock[id] } />
+          <button className="btn btn-danger" onClick={() => {
+            let copyData = []
+            stock.forEach((item, idx) => {
+              if (idx == id) {
+                if (item <= 0) {
+                  window.alert('sold out');
+                  copyData.push(0);
+                } else {
+                  copyData.push(item - 1)
+                }
+              } else {
+                copyData.push(item)
+              }
+            })
+            console.log(stock);
+            setStock(copyData);
+          }}>주문하기</button> 
           <button className="btn btn-danger" onClick={() => {history.goBack()}}>뒤로가기</button> 
         </div>
       </div>
