@@ -14,7 +14,6 @@ function App() {
 
   const [shoes, setShoes] = useState(Data);
   const [isLoading, setIsLoading] = useState(false);
-  const [stock, setStock] = useState([10,11,21]);
 
   return (
     <div className="App">
@@ -52,7 +51,7 @@ function App() {
         </Route>
 
         <Route path="/detail/:id">
-          <Detail goods={shoes} stock={stock} setStock={setStock}/>
+          <Detail goods={shoes} setShoes={setShoes}/>
         </Route>
 
         <Route path="/:id">

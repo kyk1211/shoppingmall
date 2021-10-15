@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import './Detail.scss';
+import { Nav } from 'react-bootstrap';
 import Stock from './Stock';
+import { CSSTransition } from 'react-transition-group';
 
 const Box = styled.div`
   padding-top: 30px;
@@ -14,21 +16,14 @@ const Title = styled.h4`
   color: ${ props => props.color };
 `;
 
-export default function Detail({ goods, stock, setStock }) {
-  const [alert, setAlert] = useState(true);
+export default function Detail({ goods, setShoes }) {
   const [inputValue, setInputValue] = useState('');
-  
-  useEffect(() => {
-    let timer = setTimeout(() => {
-      setAlert(false);
-    }, 2000)
-    return () => {
-      clearTimeout(timer);
-    }
-  }, []);
-  
+  const [tab, setTab] = useState(0);
+  const [tabAni, setTabAni] = useState(false);
+
   const { id } = useParams();
   const history = useHistory();
+
   const findGoods = goods.find(item => item.id == id)
 
   return (
@@ -37,15 +32,15 @@ export default function Detail({ goods, stock, setStock }) {
         <Title className="black">Detail</Title>
         {/* <Title color="red">Detail</Title> */}
       </Box>
-      { inputValue }
+      <p>{ inputValue }</p>
       <input onChange={(e) => {setInputValue(e.target.value)}}/>
 
       {/* <div className="my-alert">
         <p>sold out</p>
       </div> */}
-      {alert ? (<div className="my-alert2">
+      {findGoods.stock ? null : (<div className="my-alert2">
         <p>sold out</p>
-      </div>) : null}
+      </div>)}
 
       <div className="row">
         <div className="col-md-6">
@@ -55,34 +50,55 @@ export default function Detail({ goods, stock, setStock }) {
           <h4 className="pt-5">{findGoods.title}</h4>
           <p>{findGoods.content}</p>
           <p>{findGoods.price}원</p>
-          <Stock stock={ stock[id] } />
+          <Stock stock={ findGoods.stock } />
           <button className="btn btn-danger" onClick={() => {
             let copyData = []
-            stock.forEach((item, idx) => {
-              if (idx == id) {
-<<<<<<< HEAD
-                if (item <= 0) {
-                  window.alert('sold out');
-                  copyData.push(0);
+            goods.forEach(item => {
+              if (findGoods.id === item.id) {
+                if (!item.stock) {
+                  alert('sold out');
+                  copyData.push(item)
                 } else {
-                  copyData.push(item - 1)
+                  item.stock = item.stock - 1
+                  copyData.push(item)
                 }
-=======
-                copyData.push(item - 1)
->>>>>>> 6ad0d43f1262a7953ebcf817f68cec3d0414f703
               } else {
                 copyData.push(item)
               }
             })
-<<<<<<< HEAD
-            console.log(stock);
-=======
->>>>>>> 6ad0d43f1262a7953ebcf817f68cec3d0414f703
-            setStock(copyData);
+            setShoes(copyData);
           }}>주문하기</button> 
           <button className="btn btn-danger" onClick={() => {history.goBack()}}>뒤로가기</button> 
         </div>
       </div>
+
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link eventKey="link-0" onClick={() => {setTabAni(false); setTab(0)}}>Active</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={() => {setTabAni(false); setTab(1)}}>Option 2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <CSSTransition in={tabAni} classNames="wow" timeout={500}>
+        <TabContent tab={tab} setTabAni={setTabAni}/>
+      </CSSTransition>
+    
     </div> 
   )
+}
+
+function TabContent({ tab, setTabAni }) {
+  useEffect(() => {
+    setTabAni(true);
+  })
+  switch(tab) {
+    case 0:
+      return <div>000</div>
+    case 1:
+      return <div>1111</div>
+    default:
+      console.log('default')
+  }
 }
