@@ -7,6 +7,7 @@ import Data from './data';
 import Card from './Card';
 import Detail from './Detail';
 import Navigation from './Navigation';
+import Cart from './Cart';
 
 import './App.css';
 
@@ -26,7 +27,7 @@ function App() {
               This is a simple hero unit, a simple jumbotron-style component for calling
               extra attention to featured content or information.
             </p>
-            <button>Learn more!</button>
+            <button><a href='https://github.com/kyk1211'>Learn more!</a></button>
           </div>
 
           <div className='container'>
@@ -54,8 +55,8 @@ function App() {
           <Detail goods={shoes} setShoes={setShoes}/>
         </Route>
 
-        <Route path="/:id">
-          <div>hi</div>
+        <Route path="/cart">
+          <Cart />
         </Route>
       </Switch>
     </div>
