@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 function Cart(props) {
+
   return (
     <div>
       <Table responsive="sm">
@@ -28,13 +29,23 @@ function Cart(props) {
           )}
         </tbody>
       </Table>
+      { props.alertState 
+        ? (<div className="my-alert2">
+          <p>warning</p>
+          <button onClick={() => props.dispatch({type: 'CLICK'})}>close</button>
+        </div>) 
+        : null
+      }
+      
     </div>
   )
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ reducer, alertReducer }) {
+  
   return {
-    state: state
+    state: reducer,
+    alertState: alertReducer
   }
 }
 

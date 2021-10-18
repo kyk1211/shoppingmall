@@ -5,7 +5,16 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
+
+function alertReducer(state = true, action) {
+  switch(action.type) {
+    case 'CLICK':
+      return !state
+    default:
+      return state
+  }
+}
 
 const initialState = [
   { id : 0, name : "멋진신발", quan : 2},
@@ -38,7 +47,9 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({reducer, alertReducer});
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>
