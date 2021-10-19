@@ -4,8 +4,10 @@ import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import './Detail.scss';
 import { Nav } from 'react-bootstrap';
-import Stock from './Stock';
+import Stock from '../components/Stock';
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
+
 
 const Box = styled.div`
   padding-top: 30px;
@@ -16,7 +18,7 @@ const Title = styled.h4`
   color: ${ props => props.color };
 `;
 
-export default function Detail({ goods, setShoes }) {
+function Detail(props) {
   const [inputValue, setInputValue] = useState('');
   const [tab, setTab] = useState(0);
   const [tabAni, setTabAni] = useState(false);
@@ -24,7 +26,28 @@ export default function Detail({ goods, setShoes }) {
   const { id } = useParams();
   const history = useHistory();
 
-  const findGoods = goods.find(item => item.id == id)
+  const findGoods = props.goods.find(item => item.id == id)
+
+  function handleClick() {
+    let copyData = []
+    props.goods.forEach(item => {
+      if (findGoods.id === item.id) {
+        if (!item.quan) {
+          alert('sold out');
+          copyData.push(item)
+        } else {
+          item.quan = item.quan - 1
+          copyData.push(item)
+          console.log(item)
+          props.dispatch({type: 'ADD', payload: { id: item.id, name: item.title, quan: 1 }})
+          history.push('/cart');
+        }
+      } else {
+        copyData.push(item)
+      }
+    })
+    props.setShoes(copyData);
+  }
 
   return (
     <div className="container">
@@ -34,11 +57,7 @@ export default function Detail({ goods, setShoes }) {
       </Box>
       <p>{ inputValue }</p>
       <input onChange={(e) => {setInputValue(e.target.value)}}/>
-
-      {/* <div className="my-alert">
-        <p>sold out</p>
-      </div> */}
-      {findGoods.stock ? null : (<div className="my-alert2">
+      {findGoods.quan ? null : (<div className="my-alert2">
         <p>sold out</p>
       </div>)}
 
@@ -50,24 +69,8 @@ export default function Detail({ goods, setShoes }) {
           <h4 className="pt-5">{findGoods.title}</h4>
           <p>{findGoods.content}</p>
           <p>{findGoods.price}원</p>
-          <Stock stock={ findGoods.stock } />
-          <button className="btn btn-danger" onClick={() => {
-            let copyData = []
-            goods.forEach(item => {
-              if (findGoods.id === item.id) {
-                if (!item.stock) {
-                  alert('sold out');
-                  copyData.push(item)
-                } else {
-                  item.stock = item.stock - 1
-                  copyData.push(item)
-                }
-              } else {
-                copyData.push(item)
-              }
-            })
-            setShoes(copyData);
-          }}>주문하기</button> 
+          <Stock quan={ findGoods.quan } />
+          <button className="btn btn-danger" onClick={handleClick}>주문하기</button> 
           <button className="btn btn-danger" onClick={() => {history.goBack()}}>뒤로가기</button> 
         </div>
       </div>
@@ -77,7 +80,7 @@ export default function Detail({ goods, setShoes }) {
           <Nav.Link eventKey="link-0" onClick={() => {setTabAni(false); setTab(0)}}>Active</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-1" onClick={() => {setTabAni(false); setTab(1)}}>Option 2</Nav.Link>
+          <Nav.Link eventKey="link-1" onClick={() => {setTabAni(false); setTab(1)}}>Option</Nav.Link>
         </Nav.Item>
       </Nav>
 
@@ -102,3 +105,11 @@ function TabContent({ tab, setTabAni }) {
       console.log('default')
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    state: state.goodsReducer
+  }
+}
+
+export default connect(mapStateToProps)(Detail)

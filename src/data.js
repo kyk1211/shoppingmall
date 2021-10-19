@@ -5,7 +5,7 @@ export default [
     title : "White and Black",
     content : "Born in France",
     price : 120000,
-    stock: 10
+    quan: 10
   },
 
   {
@@ -13,7 +13,7 @@ export default [
     title : "Red Knit",
     content : "Born in Seoul",
     price : 110000,
-    stock: 21
+    quan: 21
   },
 
   {
@@ -21,6 +21,6 @@ export default [
     title : "Grey Yordan",
     content : "Born in the States",
     price : 130000,
-    stock: 50
+    quan: 50
   }
 ] 

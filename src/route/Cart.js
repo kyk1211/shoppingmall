@@ -22,29 +22,29 @@ function Cart(props) {
               <td>{item.name}</td>
               <td>{item.quan}</td>
               <td>
-                <button onClick={() => props.dispatch({type: 'INCREMENT', id: item.id})}>추가</button>
-                <button onClick={() => props.dispatch({type: 'DECREMENT', id: item.id})}>빼기</button>
+                <button onClick={() => props.dispatch({ type: 'INCREMENT', payload: item.id })}>추가</button>
+                <button onClick={() => props.dispatch({ type: 'DECREMENT', payload: item.id })}>빼기</button>
               </td>
             </tr>)
           )}
         </tbody>
       </Table>
-      { props.alertState 
+
+      {props.alertState 
         ? (<div className="my-alert2">
           <p>warning</p>
-          <button onClick={() => props.dispatch({type: 'CLICK'})}>close</button>
+          <button onClick={() => props.dispatch({ type: 'CLICK' })}>close</button>
         </div>) 
-        : null
-      }
-      
+        : null}
+
     </div>
   )
 }
 
-function mapStateToProps({ reducer, alertReducer }) {
+function mapStateToProps({ goodsReducer, alertReducer }) {
   
   return {
-    state: reducer,
+    state: goodsReducer,
     alertState: alertReducer
   }
 }

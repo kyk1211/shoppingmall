@@ -1,13 +1,13 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import React, {  useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import Data from './data';
+import Data from '../data';
 import Card from './Card';
-import Detail from './Detail';
+import Detail from '../route/Detail';
 import Navigation from './Navigation';
-import Cart from './Cart';
+import Cart from '../route/Cart';
 
 import './App.css';
 

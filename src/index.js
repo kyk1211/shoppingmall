@@ -2,52 +2,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
-
-function alertReducer(state = true, action) {
-  switch(action.type) {
-    case 'CLICK':
-      return !state
-    default:
-      return state
-  }
-}
-
-const initialState = [
-  { id : 0, name : "멋진신발", quan : 2},
-  { id : 1, name : "멋진신발2", quan : 1},
-  { id : 2, name : "멋진신발3", quan : 100}
-];
-
-const reducer = (state = initialState, action) => {
-  switch(action.type) {
-    case 'INCREMENT':
-      const copy = [...state]
-      copy.map((item) => {
-        if (item.id === action.id) {
-          item.quan++
-        }
-      })
-      return copy
-    case 'DECREMENT':
-      const copy2 = [...state]
-      copy2.map((item) => {
-        if (item.id === action.id) {
-          if (item.quan) {
-            item.quan--;
-          }
-        }
-      })
-      return copy2
-    default:
-      return state
-  }
-};
-
-const rootReducer = combineReducers({reducer, alertReducer});
+import { createStore } from 'redux';
+import rootReducer from './reducers/rootReducer';
 
 const store = createStore(rootReducer);
 
