@@ -29,7 +29,7 @@ const goodsReducer = (state = initialState, action) => {
       if (copy3.find(item => item.id == action.payload.id)) {
         copy3.map(item => {
           if (item.id == action.payload.id) {
-            item.quan = item.quan + action.payload.quan
+            item.quan = action.payload.quan
           }
         })
       } else {

@@ -3,6 +3,8 @@ import React from 'react';
 export default function Stock({ quan }) {
 
   return (
-    <p>재고 : { quan }</p>
+    <>
+      {quan == null ? <p>재고 : 0</p> : <p>재고 : { quan }</p>}
+    </>
   )
 }

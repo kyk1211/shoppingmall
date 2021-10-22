@@ -6,7 +6,7 @@ import './Detail.scss';
 import { Nav } from 'react-bootstrap';
 import Stock from '../components/Stock';
 import { CSSTransition } from 'react-transition-group';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Box = styled.div`
@@ -18,19 +18,21 @@ const Title = styled.h4`
   color: ${ props => props.color };
 `;
 
-function Detail(props) {
+function Detail({ goods, setShoes }) {
   const [inputValue, setInputValue] = useState('');
   const [tab, setTab] = useState(0);
   const [tabAni, setTabAni] = useState(false);
+  const state = useSelector(state => state.goodsReducer);
+  const dispatch = useDispatch();
 
   const { id } = useParams();
   const history = useHistory();
 
-  const findGoods = props.goods.find(item => item.id == id)
+  const findGoods = goods.find(item => item.id == id)
 
   function handleClick() {
     let copyData = []
-    props.goods.forEach(item => {
+    goods.forEach(item => {
       if (findGoods.id === item.id) {
         if (!item.quan) {
           alert('sold out');
@@ -39,14 +41,14 @@ function Detail(props) {
           item.quan = item.quan - 1
           copyData.push(item)
           console.log(item)
-          props.dispatch({type: 'ADD', payload: { id: item.id, name: item.title, quan: 1 }})
+          dispatch({type: 'ADD', payload: { id: item.id, name: item.title, quan : 1 }})
           history.push('/cart');
         }
       } else {
         copyData.push(item)
       }
     })
-    props.setShoes(copyData);
+    setShoes(copyData);
   }
 
   return (
@@ -106,10 +108,10 @@ function TabContent({ tab, setTabAni }) {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    state: state.goodsReducer
-  }
-}
+// function mapStateToProps(state) {
+//   return {
+//     state: state.goodsReducer
+//   }
+// }
 
-export default connect(mapStateToProps)(Detail)
+export default Detail
