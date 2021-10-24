@@ -6,7 +6,7 @@ import './Detail.scss';
 import { Nav } from 'react-bootstrap';
 import Stock from '../components/Stock';
 import { CSSTransition } from 'react-transition-group';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 const Box = styled.div`
@@ -18,11 +18,10 @@ const Title = styled.h4`
   color: ${ props => props.color };
 `;
 
-function Detail({ goods, setShoes }) {
+function Detail({ goods }) {
   const [inputValue, setInputValue] = useState('');
   const [tab, setTab] = useState(0);
   const [tabAni, setTabAni] = useState(false);
-  const state = useSelector(state => state.goodsReducer);
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -31,24 +30,12 @@ function Detail({ goods, setShoes }) {
   const findGoods = goods.find(item => item.id == id)
 
   function handleClick() {
-    let copyData = []
-    goods.forEach(item => {
-      if (findGoods.id === item.id) {
-        if (!item.quan) {
-          alert('sold out');
-          copyData.push(item)
-        } else {
-          item.quan = item.quan - 1
-          copyData.push(item)
-          console.log(item)
-          dispatch({type: 'ADD', payload: { id: item.id, name: item.title, quan : 1 }})
-          history.push('/cart');
-        }
-      } else {
-        copyData.push(item)
-      }
-    })
-    setShoes(copyData);
+    if (!findGoods.quan) {
+      alert('sold out');
+    } else {
+      dispatch({type: 'ADD', payload: { id: findGoods.id, name: findGoods.title, quan : 1 }})
+      alert('장바구니에 추가되었습니다.')
+    }
   }
 
   return (

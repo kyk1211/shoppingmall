@@ -52,11 +52,11 @@ function App() {
         </Route>
 
         <Route path="/detail/:id">
-          <Detail goods={shoes} setShoes={setShoes}/>
+          <Detail goods={shoes} />
         </Route>
 
         <Route path="/cart">
-          <Cart />
+          <Cart shoes={shoes} setShoes={setShoes} />
         </Route>
       </Switch>
     </div>
