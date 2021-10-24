@@ -1,13 +1,15 @@
 /* eslint-disable */
-import React, {  useState } from 'react';
+import React, {  useState, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import Data from '../data';
 import Card from './Card';
-import Detail from '../route/Detail';
+// import Detail from '../route/Detail';
+let Detail = lazy(() => {return import('../route/Detail')})
 import Navigation from './Navigation';
-import Cart from '../route/Cart';
+// import Cart from '../route/Cart';
+let Cart = lazy(() => {return import('../route/Cart')})
 
 import './App.css';
 
@@ -52,11 +54,15 @@ function App() {
         </Route>
 
         <Route path="/detail/:id">
-          <Detail goods={shoes} />
+          <Suspense fallback={<div>Loading</div>}>
+            <Detail goods={shoes} />
+          </Suspense>
         </Route>
 
         <Route path="/cart">
-          <Cart shoes={shoes} setShoes={setShoes} />
+          <Suspense fallback={<div>Loading</div>}>
+            <Cart shoes={shoes} setShoes={setShoes} />  
+          </Suspense>
         </Route>
       </Switch>
     </div>
