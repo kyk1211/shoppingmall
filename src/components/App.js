@@ -9,7 +9,7 @@ import Card from './Card';
 let Detail = lazy(() => {return import('../route/Detail')})
 import Navigation from './Navigation';
 // import Cart from '../route/Cart';
-let Cart = lazy(() => {return import('../route/Cart')})
+let Cart = lazy(() => import('../route/Cart'))
 
 import './App.css';
 

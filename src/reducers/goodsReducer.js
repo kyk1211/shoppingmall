@@ -1,7 +1,7 @@
 /* eslint-disable */
 const initialState = [
-  { orderNum: 1, id : 100, name : "멋진신발2", quan : 1},
-  { orderNum: 2, id : 200, name : "멋진신발3", quan : 100}
+  { orderNum: 1, id : 100, name : "멋진신발2", quan : 1, price: 12000},
+  { orderNum: 2, id : 200, name : "멋진신발3", quan : 100, price: 14000}
 ];
 
 const goodsReducer = (state = initialState, action) => {

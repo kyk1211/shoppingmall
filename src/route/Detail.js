@@ -22,18 +22,28 @@ function Detail({ goods }) {
   const [inputValue, setInputValue] = useState('');
   const [tab, setTab] = useState(0);
   const [tabAni, setTabAni] = useState(false);
+  const [localData, setLocalData] = useState([]);
   const dispatch = useDispatch();
-
+  
   const { id } = useParams();
   const history = useHistory();
+  
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('looked'))
+    if (!data.includes(id)) {
+      data.push(id)
+      localStorage.setItem('looked', JSON.stringify(data))
+    }
+    setLocalData(JSON.parse(localStorage.getItem('looked')))
+  }, [])
 
   const findGoods = goods.find(item => item.id == id)
-
+  
   function handleClick() {
     if (!findGoods.quan) {
       alert('sold out');
     } else {
-      dispatch({type: 'ADD', payload: { id: findGoods.id, name: findGoods.title, quan : 1 }})
+      dispatch({type: 'ADD', payload: { id: findGoods.id, name: findGoods.title, quan : 1, price: findGoods.price }})
       alert('장바구니에 추가되었습니다.')
     }
   }
@@ -49,18 +59,23 @@ function Detail({ goods }) {
       {findGoods.quan ? null : (<div className="my-alert2">
         <p>sold out</p>
       </div>)}
-
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-5">
           <img src={"https://codingapple1.github.io/shop/shoes"+(findGoods.id+1)+".jpg"} width="100%" />
         </div>
-        <div className="col-md-6 mt-4">
+        <div className="col-md-5 mt-4">
           <h4 className="pt-5">{findGoods.title}</h4>
           <p>{findGoods.content}</p>
           <p>{findGoods.price}원</p>
           <Stock quan={ findGoods.quan } />
           <button className="btn btn-danger" onClick={handleClick}>주문하기</button> 
           <button className="btn btn-danger" onClick={() => {history.goBack()}}>뒤로가기</button> 
+        </div>
+        <div className="col-md-2 mt-4 lookedList">
+          <p className="pt-5">최근 본 상품</p>
+          {localData.map((item,idx) => (
+            <p key={idx}>{item}</p>
+          ))}
         </div>
       </div>
 
