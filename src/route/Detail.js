@@ -96,10 +96,10 @@ function Detail({ goods }) {
 
       <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
         <Nav.Item>
-          <Nav.Link eventKey="link-0" onClick={() => {setTabAni(false); setTab(0)}}>Active</Nav.Link>
+          <Nav.Link eventKey="link-0" onClick={() => {setTabAni(false); setTab(0)}}>제품 설명</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-1" onClick={() => {setTabAni(false); setTab(1)}}>Option</Nav.Link>
+          <Nav.Link eventKey="link-1" onClick={() => {setTabAni(false); setTab(1)}}>Q&A</Nav.Link>
         </Nav.Item>
       </Nav>
 
@@ -117,9 +117,9 @@ function TabContent({ tab, setTabAni }) {
   })
   switch(tab) {
     case 0:
-      return <div>000</div>
+      return <div>제품설명</div>
     case 1:
-      return <div>1111</div>
+      return <div>q&a</div>
     default:
       console.log('default')
   }

@@ -7,3 +7,12 @@
   margin: auto;
   background-color: #ffe591;
 }
+
+.buy-btn {
+  margin-bottom: 10px;
+}
+
+.btn-td {
+  display: flex;
+  justify-content: space-evenly;
+}

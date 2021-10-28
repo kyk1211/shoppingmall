@@ -45,7 +45,7 @@ function Cart({ shoes, setShoes }) {
                 <td>{item.name}</td>
                 <td>{item.quan}</td>
                 <td>{item.quan * item.price}</td>
-                <td>
+                <td className="btn-td">
                   <button class="btn btn-primary" onClick={() => dispatch({ type: 'INCREMENT', payload: item.id })}>추가</button>
                   <button class="btn btn-primary" onClick={() => dispatch({ type: 'DECREMENT', payload: item.id })}>빼기</button>
                 </td>
@@ -54,7 +54,7 @@ function Cart({ shoes, setShoes }) {
         </tbody>
       </Table>
       <div><p>총가격: {allPrice}원</p></div>
-      <button class="btn btn-primary" onClick={handleClick}>모두 구매</button>
+      <button class="btn btn-primary buy-btn" onClick={handleClick}>모두 구매</button>
 
       {alertReducer 
         ? (<div className="my-alert2">
