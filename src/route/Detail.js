@@ -29,11 +29,21 @@ function Detail({ goods }) {
   const history = useHistory();
   
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('looked'))
-    if (!data.includes(id)) {
-      data.push(id)
-      localStorage.setItem('looked', JSON.stringify(data))
+    let data = JSON.parse(localStorage.getItem('looked'))
+    if (data == null) {
+      data = []
     }
+    if (data.includes(id)) {
+      data.splice(data.indexOf(id), 1)
+    }
+    data.unshift(id)
+    data = new Set(data)
+    data = [...data]
+    while (data.length >= 5) {
+      data.shift()
+    }
+    
+    localStorage.setItem('looked', JSON.stringify(data))
     setLocalData(JSON.parse(localStorage.getItem('looked')))
   }, [])
 
@@ -72,10 +82,15 @@ function Detail({ goods }) {
           <button className="btn btn-danger" onClick={() => {history.goBack()}}>뒤로가기</button> 
         </div>
         <div className="col-md-2 mt-4 lookedList">
-          <p className="pt-5">최근 본 상품</p>
+          <p>최근 본 상품</p>
           {localData.map((item,idx) => (
             <p key={idx}>{item}</p>
           ))}
+          <button className="btn btn-primary del-btn" onClick={() => {
+            localStorage.removeItem('looked')
+            setLocalData([])
+            alert('기록을 지웠습니다.')}}>기록 지우기
+          </button>
         </div>
       </div>
 
